@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>فسحني و روحني</title>
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      background: #1e293b;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    .navbar h2 { margin: 0; }
+    .navbar button {
+      background: #2563eb;
+      border: none;
+      padding: 8px 12px;
+      margin-left: 10px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .navbar button:hover { background: #1e40af; }
+    .container { padding: 20px; text-align: center; }
+    h1 { color: #93c5fd; margin-bottom: 20px; }
+    .trips {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .trip-card {
+      background: #1e293b;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      padding: 15px;
+      transition: transform 0.2s ease-in-out;
+    }
+    .trip-card:hover { transform: translateY(-5px); }
+    .trip-image {
+      width: 100%;
+      height: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .trip-title { font-size: 18px; font-weight: bold; color: #60a5fa; }
+    .trip-info { margin: 8px 0; color: #e2e8f0; }
+    .book-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .book-btn:hover { background: #1e40af; }
+    /* نافذة تسجيل الدخول */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      width: 300px;
+      text-align: center;
+      color: #f1f5f9;
+    }
+    .modal-content input {
+      width: 90%;
+      padding: 8px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 6px;
+    }
+    .modal-content button {
+      margin-top: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- الشريط العلوي -->
+  <div class="navbar">
+    <h2 id="siteTitle">فسحني و روحني</h2>
+    <div>
+      <span id="welcomeMsg"></span>
+      <button id="loginBtn">تسجيل الدخول</button>
+      <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 id="pageTitle">قائمة الرحلات</h1>
+    <div class="trips" id="tripsContainer"></div>
+  </div>
+
+  <!-- نافذة تسجيل الدخول -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <h3>تسجيل الدخول</h3>
+      <input type="text" id="name" placeholder="الاسم" required>
+      <input type="number" id="age" placeholder="السن" required>
+      <input type="text" id="address" placeholder="العنوان" required>
+      <input type="text" id="phone" placeholder="رقم الهاتف" required>
+      <button id="submitLogin">دخول</button>
+    </div>
+  </div>
+  <!-- قسم الفنادق -->
+<section id="hotels">
+  <h2 style="text-align:center; color:#fff; margin:30px 0;">قائمة الفنادق</h2>
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px;">
+
+    <!-- فندق 1 -->
+    <div style="background:#1e293b; border-radius:12px; width:250px; padding:15px; text-align:center;">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/123456.jpg" alt="فندق 1" style="width:100%; border-radius:8px;">
+      <h3 style="color:#60a5fa; margin:10px 0;">فندق جراند ريزورت</h3>
+      <p>⭐ 5 نجوم</p>
+      <p>السعر: 2500 جنيه لليلة</p>
+      <a href="https://wa.me/201112891399" target="_blank" style="display:inline-block; margin-top:10px; padding:8px 15px; background:#2563eb; color:#fff; border-radius:8px; text-decoration:none;">احجز الآن</a>
+    </div>
+
+    <!-- فندق 2 -->
+    <div style="background:#1e293b; border-radius:12px; width:250px; padding:15px; text-align:center;">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/654321.jpg" alt="فندق 2" style="width:100%; border-radius:8px;">
+      <h3 style="color:#60a5fa; margin:10px 0;">فندق بلو مارين</h3>
+      <p>⭐ 4 نجوم</p>
+      <p>السعر: 1800 جنيه لليلة</p>
+      <a href="https://wa.me/201112891399" target="_blank" style="display:inline-block; margin-top:10px; padding:8px 15px; background:#2563eb; color:#fff; border-radius:8px; text-decoration:none;">احجز الآن</a>
+    </div>
+
+    <!-- فندق 3 -->
+    <div style="background:#1e293b; border-radius:12px; width:250px; padding:15px; text-align:center;">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/987654.jpg" alt="فندق 3" style="width:100%; border-radius:8px;">
+      <h3 style="color:#60a5fa; margin:10px 0;">فندق صن رايز</h3>
+      <p>⭐ 5 نجوم</p>
+      <p>السعر: 3000 جنيه لليلة</p>
+      <a href="https://wa.me/201112891399" target="_blank" style="display:inline-block; margin-top:10px; padding:8px 15px; background:#2563eb; color:#fff; border-radius:8px; text-decoration:none;">احجز الآن</a>
+    </div>
+
+    <!-- فندق 4 -->
+    <div style="background:#1e293b; border-radius:12px; width:250px; padding:15px; text-align:center;">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/246810.jpg" alt="فندق 4" style="width:100%; border-radius:8px;">
+      <h3 style="color:#60a5fa; margin:10px 0;">فندق فيروزي</h3>
+      <p>⭐ 3 نجوم</p>
+      <p>السعر: 1200 جنيه لليلة</p>
+      <a href="https://wa.me/201112891399" target="_blank" style="display:inline-block; margin-top:10px; padding:8px 15px; background:#2563eb; color:#fff; border-radius:8px; text-decoration:none;">احجز الآن</a>
+    </div>
+   <!-- فندق 4 -->
+    <div style="background:#1e293b; border-radius:12px; width:250px; padding:15px; text-align:center;">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/246810.jpg" alt="فندق 4" style="width:100%; border-radius:8px;">
+      <h3 style="color:#60a5fa; margin:10px 0;">فندق فيروزي</h3>
+      <p>⭐ 3 نجوم</p>
+      <p>السعر: 1200 جنيه لليلة</p>
+      <a href="https://wa.me/201112891399" target="_blank" style="display:inline-block; margin-top:10px; padding:8px 15px; background:#2563eb; color:#fff; border-radius:8px; text-decoration:none;">احجز الآن</a>
+    </div>
+  </div>
+</section>
+
+  <script>
+    const trips = [
+      { title: "رحلة إلى الأقصر", date: "2025-09-01", price: "1500 جنيه", img: "https://picsum.photos/id/1018/400/200" },
+      { title: "رحلة إلى أسوان", date: "2025-09-10", price: "2000 جنيه", img: "https://picsum.photos/id/1015/400/200" },
+      { title: "رحلة إلى الغردقة", date: "2025-09-15", price: "1200 جنيه", img: "https://picsum.photos/id/1016/400/200" },
+      { title: "رحلة إلى شرم الشيخ", date: "2025-09-20", price: "1800 جنيه", img: "https://picsum.photos/id/1019/400/200" }
+    ];
+  
+    const tripsContainer = document.getElementById("tripsContainer");
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const welcomeMsg = document.getElementById("welcomeMsg");
+    const loginModal = document.getElementById("loginModal");
+    const submitLogin = document.getElementById("submitLogin");
+
+    let currentUser = JSON.parse(localStorage.getItem("user")) || null;
+
+    function renderTrips() {
+      tripsContainer.innerHTML = "";
+      trips.forEach(trip => {
+        const card = document.createElement("div");
+        card.className = "trip-card";
+        card.innerHTML = `
+          <img src="${trip.img}" alt="${trip.title}" class="trip-image" />
+          <div class="trip-title">${trip.title}</div>
+          <div class="trip-info">📅 ${trip.date}</div>
+          <div class="trip-info">💵 ${trip.price}</div>
+          <button class="book-btn">احجز الآن</button>
+        `;
+        card.querySelector(".book-btn").addEventListener("click", () => {
+          if (!currentUser) {
+            loginModal.style.display = "flex";
+          } else {
+            window.open(`https://wa.me/201112891399?text=مرحباً، أريد الحجز في ${trip.title}`, "_blank");
+          }
+        });
+        tripsContainer.appendChild(card);
+      });
+    }
+
+    function updateUI() {
+      if (currentUser) {
+        welcomeMsg.textContent = `مرحباً، ${currentUser.name}`;
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+      } else {
+        welcomeMsg.textContent = "";
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+      }
+    }
+
+    loginBtn.addEventListener("click", () => {
+      loginModal.style.display = "flex";
+    });
+
+    submitLogin.addEventListener("click", () => {
+      const name = document.getElementById("name").value.trim();
+      const age = document.getElementById("age").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      if (name && age && address && phone) {
+        currentUser = { name, age, address, phone };
+        localStorage.setItem("user", JSON.stringify(currentUser));
+        loginModal.style.display = "none";
+        updateUI();
+      } else {
+        alert("من فضلك املأ جميع الحقول");
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("user");
+      currentUser = null;
+      updateUI();
+    });
+
+    window.onclick = (e) => {
+      if (e.target === loginModal) loginModal.style.display = "none";
+    };
+
+    renderTrips();
+    updateUI();
+  </script>
+</body>
+</html>
